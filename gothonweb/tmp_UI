@@ -1,0 +1,188 @@
+render = web.template.render('templates/')
+
+urls = ('/', 'index', '/result', 'result', '/queryresult', 'queryresult','/personalitystatistic.html', 'personalitystatistic','/topicstatistic.html', 'topicstatistic','/topicresult', 'topicresult','/bothresult', 'bothresult')
+app = web.application(urls, globals())
+
+myform = form.Form(
+    form.Textbox("User"),
+#        form.notnull,
+#        form.regexp('\d+', 'Must be a digit')),
+#        form.Validator('Must be more than 5', lambda x:int(x)>5),
+    form.Textarea('Question'),
+    form.Checkbox("personality", description="personality", class_="standard", value="Based on Personality"),
+    form.Checkbox("topic", description="topic", class_="standard", value="Based on Content"),
+    form.Checkbox("topic_personality", description="topic_personality", class_="standard", value="Based on both"))
+
+
+
+class index:
+    def GET(self):
+        form = myform()
+        # make sure you create a copy of the form by calling it (line above)
+        # Otherwise changes will appear globally
+        print "Calling form"
+        uList = []
+        if os.path.isfile("/home/saurabh/IR_Project/PersonalityRecognizer/userList.pkl"):
+            print "File userList.pkl found"
+            uList = load_obj("userList.pkl")
+
+        return render.formtest(form, uList)
+
+    def POST(self):
+        form = myform()
+        if not form.validates():
+            return render.formtest(form)
+        else:
+            # form.d.boe and form['boe'].value are equivalent ways of
+            # extracting the validated arguments from the form.
+            global user
+            global question
+            user = form.d.User
+            question = form.d.Question
+            if form['personality'].checked:
+                if user:
+                    raise web.seeother('/result')
+                elif question:
+                    raise web.seeother('/queryresult')
+                else:
+                    raise web.seeother("/")
+            if form['topic'].checked:
+                raise web.seeother('/topicresult')
+            if form['topic_personality'].checked:
+                raise web.seeother('/bothresult')
+
+
+
+
+class result:
+    def GET(self):
+        list1 = calcuateSimilarity(user)
+        list3 = calcuateTopicSimilarityFromSimilarUsers(user, list1)
+        print "List of similar users"
+        print list1
+        print list3
+        if os.path.isfile("/home/saurabh/IR_Project/PersonalityRecognizer/userScores.pkl"):
+            print "File userScores.pkl found"
+            userScores = load_obj("userScores.pkl")
+        dict1 = {}
+        for usr in list1:
+            dict1[usr] = userScores[usr]
+        #return render.result(dict1, list2, list3)
+        myScore = userScores[user]
+        return render.result(dict1, myScore)
+        #return render.result(similarUsers)
+
+    def POST(self):
+        raise web.seeother("/")
+
+
+class queryresult:
+    def GET(self):
+        #query_ques = processQuestion(question)
+        tokenizer = RegexpTokenizer(r'\w+')
+        tokens = tokenizer.tokenize(question)
+        tokens = [i for i in tokens if i not in stop]
+        tokens = list(set(tokens))
+        stemmer = PorterStemmer()
+        stem_tokens = [stemmer.stem(token) for token in tokens]
+        stem_tokens = [stem_token for stem_token in stem_tokens]
+        query_ques = ' '.join(stem_tokens)
+        fname= queryDirname + 'query.txt'
+        f = open(fname, 'w')
+        f.write(query_ques)
+        f.close()
+        score = calculateQueryScore()
+        if os.path.isfile("/home/saurabh/IR_Project/PersonalityRecognizer/userScores.pkl"):
+            print "File userScores.pkl found"
+            userScores = load_obj("userScores.pkl")
+        similarity = {}
+        print "UserScores"
+        print userScores
+        for user in userScores.keys():
+            data2 = userScores[user]
+            result = 1 - spatial.distance.cosine(score, data2)
+            similarity[user] = result
+        similarUsers = dict(sorted(similarity.iteritems(), key=operator.itemgetter(1), reverse=True)[:5])
+        dict1 = {}
+        for usr in similarUsers:
+            dict1[usr] = userScores[usr]
+        myScore = userScores[user]
+        return render.queryresult(dict1, myScore)
+        #return render.queryresult(similarUsers)
+
+    def POST(self):
+        raise web.seeother("/")
+
+
+class personalitystatistic:
+    def GET(self):
+        userid = web.cookies().get('userId')
+        return render.personalitystatistic(userid)
+
+    def POST(self):
+        raise web.seeother("/")
+
+
+class topicresult:
+    def GET(self):
+        topicVector = {}
+        list2 = calcuateTopicSimilarity(user)
+        if os.path.isfile("/home/saurabh/IR_Project/PersonalityRecognizer/userTopicsVector.pkl"):
+            print "File userScores.pkl found"
+            topicVector = load_obj("userTopicsVector.pkl")
+        print "userTopicVector"
+        print topicVector
+        dict1 = {}
+        for usr in list2:
+            dict1[usr] = topicVector[usr]
+        #return render.result(dict1, list2, list3)
+        myVector = topicVector[user]
+        #userid = web.cookies().get('userId')
+        return render.topicresult(dict1, myVector)
+
+    def POST(self):
+        raise web.seeother("/")
+
+
+class bothresult:
+    def GET(self):
+        userScores = {}
+        topicVector = {}
+        list1 = calcuateSimilarity(user)
+        list3 = calcuateTopicSimilarityFromSimilarUsers(user, list1)
+        if os.path.isfile("/home/saurabh/IR_Project/PersonalityRecognizer/userScores.pkl"):
+            print "File userScores.pkl found"
+            userScores = load_obj("userScores.pkl")
+        if os.path.isfile("/home/saurabh/IR_Project/PersonalityRecognizer/userTopicsVector.pkl"):
+            print "File userTopicsVector.pkl found"
+            topicVector = load_obj("userTopicsVector.pkl")
+        dict1 = {}
+        for usr in list3:
+            dict1[usr] = userScores[usr]
+        dict2 = {}
+        for usr in list3:
+            dict2[usr] = topicVector[usr]
+
+        #return render.result(dict1, list2, list3)
+        myScore = userScores[user]
+        myVector = topicVector[user]
+
+        return render.bothresult(dict1, dict2, myScore, myVector)
+
+    def POST(self):
+        raise web.seeother("/")
+
+
+class topicstatistic:
+    def GET(self):
+        userid = web.cookies().get('userId')
+        return render.topicstatistic(userid)
+
+    def POST(self):
+        raise web.seeother("/")
+
+
+if __name__=="__main__":
+    web.internalerror = web.debugerror
+    #preProcessData()
+    app.run()

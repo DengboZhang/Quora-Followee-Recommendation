@@ -1,0 +1,65 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+DEFAULT_CONFIG_FILE	PersonalityRecognizer.java	/^	public static final File DEFAULT_CONFIG_FILE = new File($/;"	f	class:PersonalityRecognizer
+DEFAULT_MODEL	PersonalityRecognizer.java	/^	private int DEFAULT_MODEL = 3;$/;"	f	class:PersonalityRecognizer	file:
+DIMENSIONS	PersonalityRecognizer.java	/^	public static final String[] DIMENSIONS = { "Extraversion",$/;"	f	class:PersonalityRecognizer
+DIM_MODEL_FILES	PersonalityRecognizer.java	/^	private static final String[] DIM_MODEL_FILES = { "extra.model", "ems.model",$/;"	f	class:PersonalityRecognizer	file:
+FS	PersonalityRecognizer.java	/^	public static final String FS = File.separator;$/;"	f	class:PersonalityRecognizer
+LIWCDictionary	LIWCDictionary.java	/^	public LIWCDictionary(File catFile) {$/;"	m	class:LIWCDictionary
+LIWCDictionary	LIWCDictionary.java	/^public class LIWCDictionary {$/;"	c
+LS	PersonalityRecognizer.java	/^	public static final String LS = System.getProperty("line.separator");$/;"	f	class:PersonalityRecognizer
+MODEL_DIRS	PersonalityRecognizer.java	/^	private static final String[] MODEL_DIRS = { "LinearRegression", "M5P", "M5P-R",$/;"	f	class:PersonalityRecognizer	file:
+MODEL_NAMES	PersonalityRecognizer.java	/^	private static final String[] MODEL_NAMES = { "Linear Regression", "M5' Model Tree",$/;"	f	class:PersonalityRecognizer	file:
+MRC_FEATURES	PersonalityRecognizer.java	/^	private static final Field[] MRC_FEATURES = { MRCDatabase.FIELD_NLET, MRCDatabase.FIELD_NPHON,$/;"	f	class:PersonalityRecognizer	file:
+MRC_POS	PersonalityRecognizer.java	/^	private static final MRCPoS[] MRC_POS = { $/;"	f	class:PersonalityRecognizer	file:
+PersonalityRecognizer	PersonalityRecognizer.java	/^	public PersonalityRecognizer() {$/;"	m	class:PersonalityRecognizer
+PersonalityRecognizer	PersonalityRecognizer.java	/^	public PersonalityRecognizer(File propFile) {$/;"	m	class:PersonalityRecognizer
+PersonalityRecognizer	PersonalityRecognizer.java	/^public class PersonalityRecognizer {$/;"	c
+Utils	Utils.java	/^public class Utils {$/;"	c
+absoluteCountFeatureSet	PersonalityRecognizer.java	/^	private Set<String> absoluteCountFeatureSet;$/;"	f	class:PersonalityRecognizer	file:
+absoluteCountFeatures	PersonalityRecognizer.java	/^	private static final String[] absoluteCountFeatures = {"WC"};$/;"	f	class:PersonalityRecognizer	file:
+addInstance	PersonalityRecognizer.java	/^	private Instance addInstance(Instances dataset, Map<String, Double> counts) {$/;"	m	class:PersonalityRecognizer	file:
+appDir	PersonalityRecognizer.java	/^	private File appDir;$/;"	f	class:PersonalityRecognizer	file:
+attributeFile	PersonalityRecognizer.java	/^	private File attributeFile;$/;"	f	class:PersonalityRecognizer	file:
+computeScoresOverCorpus	PersonalityRecognizer.java	/^	public Map<File,Double[]> computeScoresOverCorpus(File dir, Classifier[] models, File outputArffFile) {$/;"	m	class:PersonalityRecognizer
+countMatches	Utils.java	/^	public static int countMatches(String regex, String text) {$/;"	m	class:Utils
+domainDependentFeatureSet	PersonalityRecognizer.java	/^	private Set<String> domainDependentFeatureSet;$/;"	f	class:PersonalityRecognizer	file:
+domainDependentFeatures	PersonalityRecognizer.java	/^	private static final String[] domainDependentFeatures = {"FRIENDS", "FAMILY", $/;"	f	class:PersonalityRecognizer	file:
+featureShortcuts	PersonalityRecognizer.java	/^	private Map<String,String> featureShortcuts;$/;"	f	class:PersonalityRecognizer	file:
+getCorpusDataset	PersonalityRecognizer.java	/^	private Map<File,Instance> getCorpusDataset(File dir) {$/;"	m	class:PersonalityRecognizer	file:
+getCounts	LIWCDictionary.java	/^	public Map<String,Double> getCounts(String text, boolean absoluteCounts) {$/;"	m	class:LIWCDictionary
+getFeatureCounts	PersonalityRecognizer.java	/^	public Map<String,Double> getFeatureCounts(String text, boolean relativeOnly) throws Exception {$/;"	m	class:PersonalityRecognizer
+getMRCCounts	PersonalityRecognizer.java	/^	private Map<String,Double> getMRCCounts(MRCDatabase db, String text) throws QueryException {$/;"	m	class:PersonalityRecognizer	file:
+getModelIndex	PersonalityRecognizer.java	/^	public int getModelIndex() {$/;"	m	class:PersonalityRecognizer
+getModelIndex	PersonalityRecognizer.java	/^	public int getModelIndex(String modelDir) {$/;"	m	class:PersonalityRecognizer
+getShortFeatureNames	PersonalityRecognizer.java	/^	private Map<String,String> getShortFeatureNames() {$/;"	m	class:PersonalityRecognizer	file:
+liwcCatFile	PersonalityRecognizer.java	/^	private File liwcCatFile;$/;"	f	class:PersonalityRecognizer	file:
+liwcDic	PersonalityRecognizer.java	/^	private LIWCDictionary liwcDic;$/;"	f	class:PersonalityRecognizer	file:
+loadLIWCDictionary	LIWCDictionary.java	/^	private Map<String,Pattern> loadLIWCDictionary(File dicFile) throws IOException {$/;"	m	class:LIWCDictionary	file:
+loadProperties	PersonalityRecognizer.java	/^	private void loadProperties(File propFile) {$/;"	m	class:PersonalityRecognizer	file:
+loadWekaModel	PersonalityRecognizer.java	/^	private Classifier loadWekaModel(File modelFile) throws Exception {$/;"	m	class:PersonalityRecognizer	file:
+loadWekaModels	PersonalityRecognizer.java	/^	public Classifier[] loadWekaModels(boolean selfModel, boolean stdModels) {$/;"	m	class:PersonalityRecognizer
+loadWekaModels	PersonalityRecognizer.java	/^	public Classifier[] loadWekaModels(int modelIndex, boolean selfModel, boolean stdModels) {$/;"	m	class:PersonalityRecognizer
+main	PersonalityRecognizer.java	/^	public static void main(String[] args) {$/;"	m	class:PersonalityRecognizer
+map	LIWCDictionary.java	/^	private Map<String,Pattern> map;$/;"	f	class:LIWCDictionary	file:
+mrcDb	PersonalityRecognizer.java	/^	private MRCDatabase mrcDb;$/;"	f	class:PersonalityRecognizer	file:
+mrcPath	PersonalityRecognizer.java	/^	private File mrcPath;$/;"	f	class:PersonalityRecognizer	file:
+printHash	Utils.java	/^	public static void printHash(Hashtable<? extends Object,? extends Object> ht, PrintStream out)$/;"	m	class:Utils
+printMap	Utils.java	/^	public static void printMap(Map<? extends Object,? extends Object> map, PrintStream out)$/;"	m	class:Utils
+printOutput	PersonalityRecognizer.java	/^	public void printOutput(Classifier[] models, Map<File,Double[]> scores,$/;"	m	class:PersonalityRecognizer
+printOutput	PersonalityRecognizer.java	/^	public void printOutput(Classifier[] models, double[] scores,$/;"	m	class:PersonalityRecognizer
+readDir	Utils.java	/^	public static String readDir(File dir) throws Exception {$/;"	m	class:Utils
+readFile	Utils.java	/^	public static String readFile(File file) throws Exception {$/;"	m	class:Utils
+recognizer	LIWCDictionary.java	/^package recognizer;$/;"	p
+recognizer	PersonalityRecognizer.java	/^package recognizer;$/;"	p
+recognizer	Utils.java	/^package recognizer;$/;"	p
+runWekaModel	PersonalityRecognizer.java	/^	private double runWekaModel(Classifier model, Map<String,Double> userData)$/;"	m	class:PersonalityRecognizer	file:
+runWekaModels	PersonalityRecognizer.java	/^	public double[] runWekaModels(Classifier[] models, Map<String,Double> counts) {$/;"	m	class:PersonalityRecognizer
+setModel	PersonalityRecognizer.java	/^	public void setModel(String modelDir) {$/;"	m	class:PersonalityRecognizer
+setModel	PersonalityRecognizer.java	/^	public void setModel(int modelIndex) {$/;"	m	class:PersonalityRecognizer
+splitSentences	LIWCDictionary.java	/^	public static String[] splitSentences(String text) {$/;"	m	class:LIWCDictionary
+tokenize	LIWCDictionary.java	/^	public static String[] tokenize(String text) {$/;"	m	class:LIWCDictionary

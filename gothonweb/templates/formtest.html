@@ -1,0 +1,43 @@
+$def with (form, list)
+
+<html>
+<head>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<!-- Source our javascript file with the jQUERY code -->
+<!--<script src="script.js"></script>-->
+<script>
+    var data = $:list;
+    console.log(data)
+
+/*  jQuery ready function. Specify a function to execute when the DOM is fully loaded.  */
+$$(document).ready(
+
+  /* This is the function that will get executed after the DOM is fully loaded */
+  function () {
+
+  /* binding the text box with the jQuery Auto complete function. */
+    $$( "#User" ).autocomplete({
+      /*Source refers to the list of fruits that are available in the auto complete list. */
+      source:data,
+      /* auto focus true means, the first item in the auto complete list is selected by default. therefore when the user hits enter,
+      it will be loaded in the textbox */
+      autoFocus: true ,
+
+    });
+  }
+
+);
+
+    </script>
+</head>
+<body>
+<form name="main" method="post">
+$if not form.valid: <p class="error">Try again, AmeriCAN:</p>
+$:form.render()
+<input type="submit" value="Submit"/>
+</form>
+</body>
+</html>
+

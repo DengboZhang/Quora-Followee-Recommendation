@@ -1,0 +1,93 @@
+$def with (d1, d2, score, vector)
+
+$def both_ranking(rows):
+    $for row in rows.keys():
+        <p>
+        <a href="personalitystatistic.html" onclick="return userLink(this)">$:row </a><div id="$(row)_both"></div><br>
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript">
+    var d1= $:d1
+    var d2= $:d2
+    var topic= $:vector
+    var personality= $:score
+    function displayBoth()
+    {
+        for(var user in d1)
+        {
+            console.log("Getting div for " + user + "_both")
+            var topicdiv = document.getElementById(user + "_both")
+            console.log(topicdiv)
+            var maxtopic = getMaxTopic(user)
+            var maxtrait = getMaxTrait(user)
+            maxtopic += 1
+            switch(maxtrait)
+            {
+                case 0:
+                    topicdiv.innerHTML = "Recommended due to topic " + maxtopic + " and personality trait Extraversion"
+                    break;
+                case 1:
+                    topicdiv.innerHTML = "Recommended due to topic " + maxtopic + " and personality trait Emotional Stability"
+                    break;
+                case 2:
+                    topicdiv.innerHTML = "Recommended due to topic " + maxtopic + " and personality trait Agreeableness"
+                    break;
+                case 3:
+                    topicdiv.innerHTML = "Recommended due to topic " + maxtopic + " and personality trait Conscientiousness"
+                    break;
+                case 4:
+                    topicdiv.innerHTML = "Recommended due to topic " + maxtopic + " and personality trait Openness to experience"
+                    break;
+            }
+        }
+    }
+
+    function getMaxTopic(user)
+    {
+        var max = -1
+        var maxtopic
+        for(var i=0; i<48; i++)
+        {
+            if(d1[user][i] * topic[i] > max)
+            {
+                console.log("Stronger Trait found " + i)
+                max = d1[user][i] * topic[i]
+                maxtopic = i
+            }
+        }
+        return maxtopic
+    }
+
+    function getMaxTrait(user)
+    {
+        var max = -1
+        var trait
+        for(var i=0; i<5; i++)
+        {
+            if(d1[user][i] * personality[i] > max)
+            {
+                console.log("Stronger Trait found " + i)
+                max = d1[user][i] * personality[i]
+                trait = i
+            }
+        }
+        return trait
+    }
+    </script>
+</head>
+<body onload="displayBoth()">
+<div>
+<form name="newform" method="post">
+<input type="submit" id="" value="Ask Again" value="Ask Again">
+</form>
+</div>
+<div>
+Recommendations based on both
+    $:both_ranking(d1)
+</div>
+</body>
+</html>

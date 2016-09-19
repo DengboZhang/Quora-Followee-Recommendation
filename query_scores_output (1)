@@ -1,0 +1,21 @@
+
+
+Output of Support Vector Machine with Linear Kernel (SMOreg):
+-------------------------------------------------------------
+
+
+
+Estimates of self-assessed personality for each file, using standardized features:
+
+File              	Extra	Emoti	Agree	Consc	Openn
+query.txt        	4.782	3.967	4.644	4.768	4.681
+
+
+Extra = Extraversion
+Emoti = Emotional stability
+Agree = Agreeableness
+Consc = Conscientiousness
+Openn = Openness to experience
+
+Models are trained to output scores on a scale from 1 (low) to 7 (high),
+the scores might need to be normalized depending on the application domain.

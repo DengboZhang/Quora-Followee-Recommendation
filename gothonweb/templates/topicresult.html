@@ -1,0 +1,63 @@
+$def with (d1, vector)
+
+$def rankingTopic(rows):
+    $for row in rows.keys():
+        <p>
+        <a href="topicstatistic.html" onclick="return userLink(this)">$:row </a><div id="$(row)_topic"></div><br>
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="jquery-1.9.1.min.js">$$.getJSON('/home/saurabh/IR_Project/PersonalityRecognizer/data.json', function(json) {
+                            console.log(json);
+        });
+    </script>
+
+    <script type="text/javascript">
+    var d1= $:d1
+    var l1= $:vector
+    function displayTopic()
+    {
+        for(var user in d1)
+        {
+            console.log("Getting div for " + user + "_topic")
+            var topicdiv = document.getElementById(user + "_topic")
+            console.log(topicdiv)
+            var topic = getMaxTopic(user)
+            topic = topic + 1
+            topicdiv.innerHTML = "Recommended due to topic " + topic
+        }
+    }
+
+    function getMaxTopic(user)
+    {
+        var max = -1
+        var topic
+        for(var i=0; i<48; i++)
+        {
+            if(d1[user][i] * l1[i] > max)
+            {
+                console.log("Stronger Trait found " + i)
+                max = d1[user][i] * l1[i]
+                topic = i
+            }
+        }
+        return topic
+    }
+</script>
+
+</head>
+<body onload="displayTopic()">
+<div>
+<form name="newform" method="post">
+<input type="submit" id="" value="Ask Again" value="Ask Again">
+</form>
+</div>
+<div style="float:left; width:40%;">
+Recommended users based on topic similarity
+    $:rankingTopic(d1)
+</div>
+</body>
+</html>

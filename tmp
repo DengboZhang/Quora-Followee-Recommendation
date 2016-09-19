@@ -1,0 +1,11 @@
+<!--
+<div style="float:left; width:40%;">
+Recommended users based on topic similarity  &lt;!&ndash; Set Div As your requirement &ndash;&gt;
+    $:rankingTopic(l2)
+</div>
+<div style="float:left; width:30%;">
+Recommendations based on both  &lt;!&ndash; Set Div As your requirement &ndash;&gt;
+    $:ranking(l3)
+</div>
+-->
+

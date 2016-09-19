@@ -1,0 +1,110 @@
+$def with (d1, l1)
+
+$def ranking(rows):
+    $for row in rows:
+        <p>
+        <a href="personalitystatistic.html" onclick="return userLink(this)">$:row </a><br>
+
+$def rankingPersonality(rows):
+    $for row in rows:
+        $#var rowid: $row + "_chart"
+        <p>
+        <a href="personalitystatistic.html" onclick="return userLink(this)">$:row </a><div id="$(row)_trait"></div><div id="$(row)_chart" style="width: 900px; height: 500px;"></div><br>
+
+$def rankingTopic(rows):
+    $for row in rows:
+        <p>
+        <a href="topicstatistic.html" onclick="return userLink(this)">$:row </a><br>
+
+<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type=text/javascript>
+function userLink(tag)
+{
+	alert("Function Called");
+	alert(tag.innerHTML)
+	setCookie("userId",tag.innerHTML)
+}
+
+function setCookie(cname, cvalue) {
+	console.log("Cookie setting");
+    document.cookie = cname + "=" + cvalue;// + "; " + expires;
+	console.log("Cookie set");
+}
+</script>
+<script type="text/javascript">
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    var d1= $:d1
+    var l1= $:l1
+    function drawChart()
+    {
+        for(var user in d1)
+        {
+            var data1 = google.visualization.arrayToDataTable([
+            ['Score','Extraversion', 'Extraversion', 'Emotional stability', 'Emotional stability', 'Agreeableness', 'Agreeableness', 'Conscientiousness', 'Conscientiousness', 'Openness to experience', 'Openness to experience'],
+            ['Traits',d1[user][0], l1[0], d1[user][1], l1[1], d1[user][2], l1[2], d1[user][3], l1[3], d1[user][4], l1[4]]
+            ]);
+            var options = {
+                title: user,
+                width:600, height:400,
+                hAxis: {title: null},
+                colors: ['red','blue'],
+                legend: {position: 'none'}
+            };
+            console.log("Accessing id " + user + "_chart")
+            var chart1 = new google.visualization.ColumnChart(document.getElementById(user + "_chart"));
+            chart1.draw(data1, options);
+            var traitdiv = document.getElementById(user + "_trait")
+            var trait = getMaxTrait(user)
+            switch(trait) 
+            {
+                case 0:
+                    traitdiv.innerHTML = "Recommended due to Extraversion"
+                    break;
+                case 1:
+                    traitdiv.innerHTML = "Recommended due to Emotional Stability"
+                    break;
+                case 2:
+                    traitdiv.innerHTML = "Recommended due to Agreeableness"
+                    break;
+                case 3:
+                    traitdiv.innerHTML = "Recommended due to Conscientiousness"
+                    break;
+                case 4:
+                    traitdiv.innerHTML = "Recommended due to Openness to experience"
+                    break;
+            } 
+        }
+    }
+
+    function getMaxTrait(user)
+    {
+        var max = -1
+        var trait
+        for(var i=0; i<5; i++)
+        {
+            if(d1[user][i] * l1[i] > max)
+            {
+                console.log("Stronger Trait found " + i)
+                max = d1[user][i] * l1[i]
+                trait = i
+            }
+        }
+        return trait
+    }
+</script>
+
+</head>
+<div>
+<form name="newform" method="post">
+<input type="submit" id="" value="Ask Again" value="Ask Again">
+</form>
+</div>
+<div style="float:left; width:30%;">
+Recommended users based on personality  <!-- Set Div As your requirement -->
+    $:rankingPersonality(d1)
+</div>
+
+</html>

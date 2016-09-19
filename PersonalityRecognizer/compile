@@ -1,0 +1,22 @@
+#! /bin/bash -
+
+# ENVIRONMENT VARIABLES
+
+JDK_PATH=/usr/lib/jvm/java-8-oracle
+WEKA=/home/saurabh/IR_Project/weka-3-4/weka.jar
+COMMONS_CLI=./lib/commons-cli-1.0.jar
+
+# ---------------------
+
+COMMONS_CLI=/home/saurabh/IR_Project/PersonalityRecognizer/lib/commons-cli-1.0.jar
+MRC=/home/saurabh/IR_Project/PersonalityRecognizer/lib/jmrc.jar
+
+LIBS=.:$WEKA:$COMMONS_CLI:$MRC:bin/
+#LIBS=.:$WEKA:$COMMONS_CLI:bin/
+
+rm bin/recognizer/*.class;
+
+$JDK_PATH/bin/javac  -classpath $LIBS src/recognizer/PersonalityRecognizer.java src/recognizer/Utils.java src/recognizer/LIWCDictionary.java -d bin/
+
+
+
